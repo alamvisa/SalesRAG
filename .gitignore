@@ -1,0 +1,11 @@
+# Environment variables
+.env
+
+# Virtual environment
+venv
+
+# Python-generated files
+__pycache__/
+build/
+dist/
+wheels/
