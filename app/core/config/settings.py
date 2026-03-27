@@ -1,19 +1,9 @@
-# from pydantic_settings import BaseSettings
-# from dotenv import load_dotenv
+from pydantic_settings import BaseSettings
+from pathlib import Path
 
-# load_dotenv()
+class Config(BaseSettings):
+    PROJECT_ROOT: Path = Path(__file__).resolve().parents[3]
+    DATA_RAW_DIR: Path = PROJECT_ROOT / "data" / "raw"
+    DATA_PROCESSED_DIR: Path = PROJECT_ROOT / "data" / "processed"
 
-# class Config(BaseSettings):
-#     app_name: str = ""
-#     debug: bool = False
-#     db_user: str = ""
-#     db_password: str = ""
-#     db_name: str = ""
-
-
-    
-#     @property
-#     def db_url(self):
-#         return f''
-
-# config = Config()
+config = Config()
