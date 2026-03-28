@@ -1,6 +1,9 @@
 import pandas as pd
 from pathlib import Path
 from app.core.config.settings import config
+import numpy as np
+import json
+import calendar
 
 def nlp(df):
     df["description"] = df.apply(
@@ -9,31 +12,44 @@ def nlp(df):
     )
     return df
 
-def agg(df, key, fr = None):
+def agg(df, keys, fr=None):
+    if isinstance(keys, str):
+        keys = [keys]
+
     if fr:
-        d = df.groupby(pd.Grouper(key=key, freq=fr))
+        grouper = [pd.Grouper(key=keys[0], freq=fr)] + keys[1:]
     else:
-        d = df.groupby(pd.Grouper(key=key))
-    
-    data = d.agg(
+        grouper = keys
+
+    data = df.groupby(grouper).agg(
         Sales_sum=("Sales", "sum"),
         Profit_sum=("Profit", "sum"),
         Quantity_sum=("Quantity", "sum"),
         Avg_Sale=("Sales", "mean"),
         Avg_Profit=("Profit", "mean"),
-        Unique_customers=("Customer ID", "nunique")
+        Unique_customers=("Customer ID", "nunique"),
+        Top_item=("Product Name", lambda x: x.value_counts().idxmax()),
+        Avg_Discount=("Discount", "mean"),
+        Discounted_rate=("Discount", lambda x: (x > 0).mean())
     )
+
     if fr is not None:
-        f = fr
-        if len(fr) > 1:
-            f = fr[0]   
-        data.index = data.index.to_period(f)
+        f = fr[0] if len(fr) > 1 else fr
+        if len(keys) > 1:
+            data.index = data.index.set_levels(
+                data.index.levels[0].to_period(f), level=0
+            )
+        else:
+            data.index = data.index.to_period(f)
+
     return data
+
+
 
 def aggregate_by_month(df):
     return agg(df, "Order Date", "ME")
 
-def aggregate_by_quater(df):
+def aggregate_by_quarter(df):
     return agg(df, "Order Date", "QE")
 
 def aggregate_by_year(df):
@@ -51,35 +67,160 @@ def aggregate_by_city(df):
 def aggregate_by_state(df):
     return agg(df, "State")
 
+def aggregate_by_region(df):
+    return agg(df, "Region")
+
+def aggregate_by_product(df):
+    return agg(df, "Product Name")
+
+def aggregate_by_month_x_category(df):
+    return agg(df, ["Order Date", "Category"], "ME")
+
+def aggregate_by_year_x_category(df):
+    return agg(df, ["Order Date", "Category"], "YE")
+
+def aggregate_by_state_x_category(df):
+    return agg(df, ["State", "Category"])
+
+def aggregate_by_month_of_year(df):
+    df = df.copy()
+    df["Month"] = df["Order Date"].dt.month
+    return agg(df, "Month")
+
+def aggregate_by_region_x_year(df):
+    return agg(df, ["Order Date", "Region"], "YE")
+
+
 def report(tables, r_table):
-    if r_table == 'agg_month': style = "month"
-    if r_table == 'agg_quater': style = "quater"
-    if r_table == 'agg_year': style = "year"
-    if r_table == 'agg_item_category': style = "item category"
-    if r_table == 'agg_item_sub_category': style = "item sub category"
-    if r_table == 'agg_city': style = "city"
-    if r_table == 'agg_state': style = "state"
+    map = {
+        'agg_month': ['month', 'months'],
+        'agg_quarter': ['quarter', 'quarters'],
+        'agg_year': ['year', 'years'],
+        'agg_item_category': ['category', 'categories'], 
+        'agg_item_sub_category': ['sub-category', 'sub-categories'],
+        'agg_city': ['city', 'cities'], 
+        'agg_state': ['state', 'states'],
+        'agg_region': ['region', 'regions'],
+        'agg_product': ['product', 'products'],
+        'agg_month_x_category': ['month within the category', 'month-category combinations'],
+        'agg_year_x_category':  ['year within the category', 'year-category combinations'],
+        'agg_state_x_category': ['state within the category', 'state-category combinations'],
+        'agg_month_of_year': ['seasonal month', 'seasonal months'],
+        'agg_region_x_year': ['region for a year', 'region-year combinations'],
+    }
+    style = map[r_table]
     table = tables[r_table]
 
     mean = table["Sales_sum"].mean()
-    top = table["Sales"].quantile(0.90)
-    low = table["Sales"].quantile(0.10)
+    top = table["Sales_sum"].quantile(0.90)
+    low = table["Sales_sum"].quantile(0.10)
 
-    margin = table['Profit_sum']/table['Sales_sum']
 
     def label_sales(x):
-        if x > top: return f"Sales performance of this {style} was one of the strongest"
-        if x > mean: return f"Sales performance of this {style} was above average"
-        if x > low: return f"Sales performance of this {style} was below average"
-        return f"Sales performance of this {style} was one of the weakest"
+        if x > top: return f"one of the strongest performing sales"
+        if x > mean: return f"an above-average performing sales"
+        if x > low: return f"a below-average performing sales"
+        return f"one of the weakest performing sales"
 
     def label_margin(x, y):
-        if x/y > 0.2: return 'high profitability'
-        if x/y > 0.1: return 'modest profitability'
-        if x/y > 0: return 'barely positive profitability'
-        return 'negative profitability'
+        if y == 0: return f"unprofitable"
+        if x/y > 0.2: return f'very profitable'
+        if x/y > 0.1: return f'moderately profitable'
+        if x/y > 0: return f'barely profitable'
+        return f'unprofitable'
     
+    def label_start(x):
+        s = style[0]
+        if s == "month": return f'In {x[0].strftime("%B %Y")},'
+        if s == "quarter": return f'In Q{x[0].quarter} {x[0].year},'
+        if s in ["year", "state", "city", "region"]: return f'In {x[0]},'
+        if s in ["category", "sub-category"]: return f'For {x[0]},'
+        if s == "product": return f'{x[0]}'
+        if s == "month within the category": return f'In {x[0].strftime("%B %Y")} for {x[1]},'
+        if s == "year within the category": return f'In {x[0].year} for {x[1]},'
+        if s == "state within the category": return f'In {x[0]} for {x[1]},'
+        if s == "seasonal month": return f'In {calendar.month_name[x[0]]},'
+        if s == "region for a year": return f'In {x[0].year} for the {x[1]} region,'
+        return ""
+        
+    def label_item(x):
+        return f'the most sold product was {x["Top_item"]}'
+        
+    def compare_previous(x, previous):
+        if style[0] in ['month', 'year', 'quarter'] and previous is not None:
+            if x > (1 + 0.1 * np.sign(previous)) * previous:
+                rep = 'strong growth'
+            elif x > previous:
+                rep = 'weak growth'
+            else:
+                rep = 'shrinkage'
+            return f' and compared to the last period, there was {rep}'
+        return ""
+    
+    def create_metadata(idx, row):
+        base = {
+            "type": style[0],
+            "month": None,
+            "quarter": None,
+            "year": None,
+            "category": None,
+            "sub-category": None,
+            "city": None,
+            "state": None,
+            "region": None,
+            "product": None,
+            "sales": row["Sales_sum"],
+            "profits": row["Profit_sum"],
+            "quantity": row["Quantity_sum"],
+            "margin": round(row["Profit_sum"] / row["Sales_sum"], 4) if row["Sales_sum"] else 0,
+            "discount_rate": round(row["Discounted_rate"], 4)
+        }
 
+        field_map = {
+            "month": lambda i: {"month": int(i[0].month), "year": int(i[0].year)},
+            "quarter": lambda i: {"quarter": str(i[0].quarter), "year": int(i[0].year)},
+            "year": lambda i: {"year": int(str(i[0]))},
+            "category": lambda i: {"category": i[0]},
+            "sub-category": lambda i: {"sub-category": i[0]},
+            "city": lambda i: {"city": i[0]},
+            "state": lambda i: {"state": i[0]},
+            "region": lambda i: {"region": i[0]},
+            "product": lambda i: {"product": i[0]},
+            "month within the category": lambda i: {"month": int(i[0].month), "year": int(i[0].year), "category": i[1]},
+            "year within the category": lambda i: {"year": int(str(i[0])), "category": i[1]},
+            "state within the category": lambda i: {"state": i[0], "category": i[1]},
+            "seasonal month": lambda i: {"month": i[0]},
+            "region for a year": lambda i: {"region": i[1], "year": int(str(i[0]))},
+            
+        }
+
+        base.update(field_map[style[0]](idx))
+        return base
+
+    previous = None
+    formats = []
+    for idx, row in table.iterrows():
+        idx_tuple = idx if isinstance(idx, tuple) else (idx,)
+        margin_str = f'{row["Profit_sum"]/row["Sales_sum"]:.1%}' if row["Sales_sum"] else "N/A"
+        if style[0] == "product":
+            s = "is"
+        elif style[0] == "seasonal month":
+            s = f'{label_item(row)} and is'
+        else: 
+            s = f'{label_item(row)} and was'
+        chunk = f'{label_start(idx_tuple)} {s} overall {label_margin(row['Profit_sum'], row['Sales_sum'])} {style[0]} with a margin of {margin_str} while having {label_sales(row['Sales_sum'])} among all {style[1]}. The total sales were ${row['Sales_sum']:.2f}{compare_previous(row['Sales_sum'], previous)}. Additionally the average discount given was {row["Avg_Discount"]:.1%} ({row["Discounted_rate"]:.1%} of orders were discounted).' 
+        previous = row['Sales_sum']
+
+        formatted = {
+            "text": chunk,
+            "metadata": create_metadata(idx_tuple, row)
+        }
+        formats.append(formatted)
+    
+    (config.DATA_PROCESSED_DIR / "documents").mkdir(parents=True, exist_ok=True)
+    with open((config.DATA_PROCESSED_DIR / "documents") / (r_table + "_document.jsonl"), "w") as f:
+        for formatted in formats:
+            f.write(json.dumps(formatted) + "\n")
 
 def process(file_name):
     path = config.DATA_RAW_DIR / file_name
@@ -90,22 +231,31 @@ def process(file_name):
     # Creating aggregate tables
     aggregate_tables = {
         'agg_month': aggregate_by_month(df),
-        'agg_quater': aggregate_by_quater(df),
+        'agg_quarter': aggregate_by_quarter(df),
         'agg_year': aggregate_by_year(df),
         'agg_item_category': aggregate_by_category(df),
         'agg_item_sub_category': aggregate_by_sub_category(df),
         'agg_city': aggregate_by_city(df),
-        'agg_state': aggregate_by_state(df)
+        'agg_state': aggregate_by_state(df),
+        'agg_region': aggregate_by_region(df),
+        'agg_product': aggregate_by_product(df),
+        'agg_month_x_category': aggregate_by_month_x_category(df),
+        'agg_year_x_category': aggregate_by_year_x_category(df),
+        'agg_state_x_category': aggregate_by_state_x_category(df),
+        'agg_month_of_year': aggregate_by_month_of_year(df),
+        'agg_region_x_year': aggregate_by_region_x_year(df)
     }
 
     # other useful: spent per customer, customers vs companies 
     # Creating summaries text documents
     for table_name, _ in aggregate_tables.items():
         report(aggregate_tables, table_name)
-
+        
     # Format datetimes correclt and produce natural languaged representation
     df["Order Date"] = df["Order Date"].dt.strftime('%Y-%m-%d')
     df["Ship Date"] = df["Ship Date"].dt.strftime('%Y-%m-%d')
     df = nlp(df)
+
+    df.to_csv(config.DATA_PROCESSED_DIR / "processed_superstore.csv", index=False)
 
 
