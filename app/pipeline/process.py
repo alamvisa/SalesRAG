@@ -160,38 +160,28 @@ def report(tables, r_table):
     def create_metadata(idx, row):
         base = {
             "type": style[0],
-            "month": None,
-            "quarter": None,
-            "year": None,
-            "category": None,
-            "sub-category": None,
-            "city": None,
-            "state": None,
-            "region": None,
-            "product": None,
-            "sales": row["Sales_sum"],
-            "profits": row["Profit_sum"],
-            "quantity": row["Quantity_sum"],
-            "margin": round(row["Profit_sum"] / row["Sales_sum"], 4) if row["Sales_sum"] else 0,
-            "discount_rate": round(row["Discounted_rate"], 4)
+            "sales": float(row["Sales_sum"]),
+            "profits": float(row["Profit_sum"]),
+            "quantity": int(row["Quantity_sum"]),
+            "margin": round(float(row["Profit_sum"]) / float(row["Sales_sum"]), 4) if row["Sales_sum"] else 0.0,
+            "discount_rate": round(float(row["Discounted_rate"]), 4)
         }
 
         field_map = {
-            "month": lambda i: {"month": int(i[0].month), "year": int(i[0].year)},
-            "quarter": lambda i: {"quarter": str(i[0].quarter), "year": int(i[0].year)},
-            "year": lambda i: {"year": int(str(i[0]))},
-            "category": lambda i: {"category": i[0]},
-            "sub-category": lambda i: {"sub-category": i[0]},
-            "city": lambda i: {"city": i[0]},
-            "state": lambda i: {"state": i[0]},
-            "region": lambda i: {"region": i[0]},
-            "product": lambda i: {"product": i[0]},
-            "month within the category": lambda i: {"month": int(i[0].month), "year": int(i[0].year), "category": i[1]},
-            "year within the category": lambda i: {"year": int(str(i[0])), "category": i[1]},
-            "state within the category": lambda i: {"state": i[0], "category": i[1]},
-            "seasonal month": lambda i: {"month": i[0]},
-            "region for a year": lambda i: {"region": i[1], "year": int(str(i[0]))},
-            
+            "month":                  lambda i: {"month": int(i[0].month), "year": int(i[0].year)},
+            "quarter":                lambda i: {"quarter": int(i[0].quarter), "year": int(i[0].year)},
+            "year":                   lambda i: {"year": int(str(i[0]))},
+            "category":               lambda i: {"category": str(i[0])},
+            "sub-category":           lambda i: {"sub-category": str(i[0])},
+            "city":                   lambda i: {"city": str(i[0])},
+            "state":                  lambda i: {"state": str(i[0])},
+            "region":                 lambda i: {"region": str(i[0])},
+            "product":                lambda i: {"product": str(i[0])},
+            "month within the category":  lambda i: {"month": int(i[0].month), "year": int(i[0].year), "category": str(i[1])},
+            "year within the category":   lambda i: {"year": int(str(i[0])), "category": str(i[1])},
+            "state within the category":  lambda i: {"state": str(i[0]), "category": str(i[1])},
+            "seasonal month":         lambda i: {"month": int(i[0])},
+            "region for a year":      lambda i: {"region": str(i[1]), "year": int(str(i[0]))},
         }
 
         base.update(field_map[style[0]](idx))
@@ -208,7 +198,7 @@ def report(tables, r_table):
             s = f'{label_item(row)} and is'
         else: 
             s = f'{label_item(row)} and was'
-        chunk = f'{label_start(idx_tuple)} {s} overall {label_margin(row['Profit_sum'], row['Sales_sum'])} {style[0]} with a margin of {margin_str} while having {label_sales(row['Sales_sum'])} among all {style[1]}. The total sales were ${row['Sales_sum']:.2f}{compare_previous(row['Sales_sum'], previous)}. Additionally the average discount given was {row["Avg_Discount"]:.1%} ({row["Discounted_rate"]:.1%} of orders were discounted).' 
+        chunk = f"{label_start(idx_tuple)} {s} overall {label_margin(row['Profit_sum'], row['Sales_sum'])} {style[0]} with a margin of {margin_str} while having {label_sales(row['Sales_sum'])} among all {style[1]}. The total sales were ${row['Sales_sum']:.2f}{compare_previous(row['Sales_sum'], previous)}. Additionally the average discount given was {row['Avg_Discount']:.1%} ({row['Discounted_rate']:.1%} of orders were discounted)."
         previous = row['Sales_sum']
 
         formatted = {

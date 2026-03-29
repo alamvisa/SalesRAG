@@ -1,5 +1,3 @@
-# AI generated Spinner animation for CLI
-
 import sys
 import time
 import threading
