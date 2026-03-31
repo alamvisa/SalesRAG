@@ -13,23 +13,31 @@ import warnings
 
 from interfaces.cli.cli_main import run
 from app.pipeline.process import process
-import pathlib
-import os
 from app.core.config.settings import config
+import sys
+import os
 
 def check():
     chroma_path = config.DATA_PROCESSED_DIR / "chroma"
     if chroma_path.exists():
         return False
-    processed = os.listdir("data/processed")
-    raw = os.listdir("data/raw")
-    for file_r in raw:
-        if f"p_{file_r}" not in processed:
-            process(file_r)
     return True
         
-
+def re_process():
+    processed = os.listdir("data/processed/documents/")
+    for file_r in processed:
+        os.unlink("data/processed/documents/" + file_r)
+    raw = os.listdir("data/raw")
+    for file_r in raw:
+        process(file_r)
+    
 
 if __name__ == "__main__":
     load = check()
+    if len(sys.argv) > 1 and sys.argv[1] == "--reload":
+        load = True
+        print("Reloading DB...")
+        re_process()
+
+    
     run(load)

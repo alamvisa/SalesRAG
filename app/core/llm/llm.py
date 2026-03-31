@@ -17,14 +17,15 @@ class generator():
             trust_remote_code=True,
         )
         self.messages = []
-        print(self.model.hf_device_map)
 
     def gen(self, input_prompt, system_prompt, context_prompt):
-        self.messages.append({"role": "system", "content": system_prompt})
-        self.messages.append({"role": "user", "content": f"Using this context: {context_prompt} Answer this question: {input_prompt}"})
+        prompt = {"role": "user", "content": f"Using, paraphrasing and summarizing this context: {context_prompt} Answer this question in your own words: {input_prompt}"}
+        if len(self.messages) == 0:
+            self.messages.append({"role": "system", "content": system_prompt})
+        self.messages.append(prompt)
         
         logger.info(json.dumps({
-            "prompt": {"role": "user", "content": f"Using this context: {context_prompt} Answer this question: {input_prompt}"}
+            "prompt": prompt
         }))
 
         inputs = self.tokenizer.apply_chat_template(
@@ -37,15 +38,26 @@ class generator():
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
 
         with torch.no_grad():
-            outputs = self.model.generate(
-                inputs,
-                max_new_tokens=config.MAX_TOKENS,
-                temperature=None,
-                do_sample=False,
-                top_p=None,
-                attention_mask = attention_mask,
-                pad_token_id=self.tokenizer.eos_token_id,
-            )   
+            if config.LLM_TEMPERATURE <= 0:
+                outputs = self.model.generate(
+                    inputs,
+                    max_new_tokens=config.MAX_TOKENS,
+                    temperature=None,
+                    do_sample=False,
+                    top_p=None,
+                    attention_mask = attention_mask,
+                    pad_token_id=self.tokenizer.eos_token_id,
+                )   
+            else:
+                outputs = self.model.generate(
+                    inputs,
+                    max_new_tokens=config.MAX_TOKENS,
+                    temperature=config.LLM_TEMPERATURE,
+                    do_sample=True,
+                    top_p=0.9,
+                    attention_mask = attention_mask,
+                    pad_token_id=self.tokenizer.eos_token_id,
+                )  
         answer = self.tokenizer.decode(
             outputs[0][inputs.shape[-1]:],
             skip_special_tokens=True

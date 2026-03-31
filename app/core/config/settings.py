@@ -10,5 +10,6 @@ class Config(BaseSettings):
     TRESHOLD: float = 0.7
     N_RESULTS: int = 3
     MAX_TOKENS: int = 256
+    LLM_TEMPERATURE: float = 0
 
 config = Config()

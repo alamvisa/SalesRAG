@@ -131,16 +131,20 @@ def report(tables, r_table):
     
     def label_start(x):
         s = style[0]
-        if s == "month": return f'In {x[0].strftime("%B %Y")},'
-        if s == "quarter": return f'In Q{x[0].quarter} {x[0].year},'
-        if s in ["year", "state", "city", "region"]: return f'In {x[0]},'
-        if s in ["category", "sub-category"]: return f'For {x[0]},'
-        if s == "product": return f'{x[0]}'
-        if s == "month within the category": return f'In {x[0].strftime("%B %Y")} for {x[1]},'
-        if s == "year within the category": return f'In {x[0].year} for {x[1]},'
-        if s == "state within the category": return f'In {x[0]} for {x[1]},'
-        if s == "seasonal month": return f'In {calendar.month_name[x[0]]},'
-        if s == "region for a year": return f'In {x[0].year} for the {x[1]} region,'
+        if s == "month": return f'Sales report for month {x[0].strftime("%B %Y")}: In {x[0].strftime("%B %Y")},'
+        if s == "quarter": return f'Sales report for quarter Q{x[0].quarter} {x[0].year}: In Q{x[0].quarter} {x[0].year},'
+        if s == "year": return f'Annual sales report for year {x[0].year}: In {x[0].year},'
+        if s == "city": return f'City sales data for {x[0]}: In the city of {x[0]}'
+        if s == "state": return f'State sales data for {x[0]}: The state of {x[0]}'
+        if s == "region": return f'Regional sales data for {x[0]}: The {x[0]} region'
+        if s == "category": return f'Product category report for {x[0]}: The {x[0]} category'
+        if s == "sub-category": return f'Product sub-category report for {x[0]}: The {x[0]} sub-category'
+        if s == "product": return f'Sales data for product {x[0]}: {x[0]}'
+        if s == "month within the category": return f'Sales report for {x[1]} in {x[0].strftime("%B %Y")}: In {x[0].strftime("%B %Y")}, the {x[1]} category'
+        if s == "year within the category": return f'Sales report for {x[1]} in {x[0].year}: In {x[0].year}, the {x[1]} category'
+        if s == "state within the category": return f'Sales report for {x[1]} in {x[0]}: In {x[0]}, the {x[1]} category'
+        if s == "seasonal month": return f'Seasonal sales data for {calendar.month_name[x[0]]}: Across all years, {calendar.month_name[x[0]]}'
+        if s == "region for a year": return f'Sales report for the {x[1]} region in {x[0].year}: In {x[0].year}, the {x[1]} region'
         return ""
         
     def label_item(x):
@@ -191,14 +195,12 @@ def report(tables, r_table):
     formats = []
     for idx, row in table.iterrows():
         idx_tuple = idx if isinstance(idx, tuple) else (idx,)
-        margin_str = f'{row["Profit_sum"]/row["Sales_sum"]:.1%}' if row["Sales_sum"] else "N/A"
+        margin_str = f'{row["Profit_sum"]/row["Sales_sum"]:.1%}'
         if style[0] == "product":
-            s = "is"
-        elif style[0] == "seasonal month":
-            s = f'{label_item(row)} and is'
-        else: 
-            s = f'{label_item(row)} and was'
-        chunk = f"{label_start(idx_tuple)} {s} overall {label_margin(row['Profit_sum'], row['Sales_sum'])} {style[0]} with a margin of {margin_str} while having {label_sales(row['Sales_sum'])} among all {style[1]}. The total sales were ${row['Sales_sum']:.2f}{compare_previous(row['Sales_sum'], previous)}. Additionally the average discount given was {row['Avg_Discount']:.1%} ({row['Discounted_rate']:.1%} of orders were discounted)."
+            verb = "is"
+        else:
+            verb = f'{label_item(row)} and was'
+        chunk = f"{label_start(idx_tuple)} {verb} overall {label_margin(row['Profit_sum'], row['Sales_sum'])} {style[0]} with a margin of {margin_str} while having {label_sales(row['Sales_sum'])} among all {style[1]}. The total sales were ${row['Sales_sum']:.2f}{compare_previous(row['Sales_sum'], previous)}. Additionally the average discount given was {row['Avg_Discount']:.1%} ({row['Discounted_rate']:.1%} of orders were discounted)."
         previous = row['Sales_sum']
 
         formatted = {
