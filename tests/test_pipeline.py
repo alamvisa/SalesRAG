@@ -83,6 +83,9 @@ def handler(loaded_db):
     "category_revenue",
     "subcategory_margins",
     "discounted_products",
+    "region_sales",
+    "comparing_states_sales",
+    "best_cities"
 ])
 class TestRAGPipelineSmoke:
     """Basic end-to-end checks: pipeline runs and returns non-empty output."""
