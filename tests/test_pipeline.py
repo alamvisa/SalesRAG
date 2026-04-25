@@ -20,6 +20,9 @@ QUERIES = [
     "Which product category generates the most revenue?",
     "What sub-categories have the highest profit margins?",
     "Which products are frequently sold at a discount?",
+    "Which region has the best sales performance?",
+    "Compare sales performance across different states.",
+    "Which cities are the top performers?"
 ]
 
 
