@@ -12,30 +12,30 @@ class generator():
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            torch_dtype=torch.float16,
+            #torch_dtype=torch.float16,
             device_map={"": "cpu"},
             trust_remote_code=True,
         )
-        self.messages = []
+        self.messages = [{"role": "system", "content": config.SYSTEM_PROMPT}]
 
-    def gen(self, input_prompt, system_prompt, context_prompt):
+    def gen(self, input_prompt, context_prompt):
         prompt = {"role": "user", "content": f"Using, paraphrasing and summarizing this context: {context_prompt} Answer this question in your own words: {input_prompt}"}
-        if len(self.messages) == 0:
-            self.messages.append({"role": "system", "content": system_prompt})
-        self.messages.append(prompt)
+
+        # Copy history to not pollute the history wiht context
+        messages_copy = self.messages + [prompt]
+        self.messages.append({"role": "user", "content": input_prompt})
         
         logger.info(json.dumps({
             "prompt": prompt
         }))
 
         inputs = self.tokenizer.apply_chat_template(
-            self.messages,
+            messages_copy,
             return_tensors="pt",
             add_generation_prompt=True
         ).to(self.device)
 
         attention_mask = torch.ones_like(inputs)
-        self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
 
         with torch.no_grad():
             if config.LLM_TEMPERATURE <= 0:
@@ -66,5 +66,11 @@ class generator():
         logger.info(json.dumps({
             "prompt": {"role": "assistant", "content": answer}
         }))
+
+        self.messages.append({"role": "assistant", "content": answer})
+
+        if len(self.messages) > 10:
+            self.messages.pop(1)
+            self.messages.pop(1)
 
         return answer

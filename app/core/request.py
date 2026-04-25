@@ -37,18 +37,18 @@ class Handler():
         self.context = self.ranker.rank(self.input, retrieved)
 
     def generate(self):
-        if self.generator == None:
+        if self.generator is None:
             return
-        system_prompt, context = get_prompt(self.input, self.context)
-        return self.generator.gen(self.input, system_prompt, context)
+        context = get_prompt(self.context)
+        return self.generator.gen(self.input, context)
     
     def get_context(self):
         return self.context
     
 # h = Handler(disable_generator=True)
-# inp = "How are the sales doing in Philadelphia?"
+# inp = "What is the sales trend over the 4-year period?"
 # h.new_input(inp)
 # h.process()
 # h.filter()
 # h.retrieve()
-# print([c for c in h.get_context() if c["metadata"]["type"] == "city"])
+# print([c for c in h.get_context() if c["source"] == "agg_month_of_year"])
