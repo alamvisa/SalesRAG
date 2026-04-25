@@ -7,7 +7,7 @@ class Config(BaseSettings):
     DATA_PROCESSED_DIR: Path = PROJECT_ROOT / "data" / "processed"
     EMBEDDING_MODEL: str = "BAAI/bge-base-en-v1.5"
     DB_NAME: str = "chroma"
-    TRESHOLD: float = 0.4
+    THRESHOLD: float = 0.4
     N_RESULTS: int = 12
     MAX_TOKENS: int = 256
     LLM_TEMPERATURE: float = 0

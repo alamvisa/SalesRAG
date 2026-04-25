@@ -12,7 +12,7 @@ class generator():
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            #torch_dtype=torch.float16,
+            torch_dtype=torch.float16,
             device_map={"": "cpu"},
             trust_remote_code=True,
         )

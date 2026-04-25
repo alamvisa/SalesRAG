@@ -7,7 +7,7 @@ import torch
 def get_client():
     return chromadb.PersistentClient(path=str(config.DATA_PROCESSED_DIR / config.DB_NAME))
 
-class EmbeddingFunction(EmbeddingFunction):
+class EmbeddingF(EmbeddingFunction):
     def __init__(self, model_name=config.EMBEDDING_MODEL):
         #self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.device = "cpu"
@@ -18,7 +18,7 @@ class EmbeddingFunction(EmbeddingFunction):
     
 def get_collections():
     client = get_client()
-    ef = EmbeddingFunction()
+    ef = EmbeddingF()
     collection_names = [
         'agg_month', 'agg_quarter', 'agg_year',
         'agg_item_category', 'agg_item_sub_category',
@@ -35,18 +35,23 @@ def get_collections():
 def query(collections, query_text, filters = None):
     results = []
     for name, collection in collections.items():
-        hits = collection.query(
+
+        n = min(config.N_RESULTS, collection.count())
+        query_kwargs = dict(
             query_texts=[query_text],
-            n_results=config.N_RESULTS,
+            n_results=n,
             include=["documents", "metadatas", "distances"]
         )
+        if filters:
+            query_kwargs["where"] = filters
+        hits = collection.query(**query_kwargs)
+
         for doc, meta, dist in zip(
-            
             hits["documents"][0],
             hits["metadatas"][0],
             hits["distances"][0]
         ):
-            if dist < config.TRESHOLD:
+            if dist < config.THRESHOLD:
                 results.append({
                     "text": doc,
                     "metadata": meta,

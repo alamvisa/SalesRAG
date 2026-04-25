@@ -2,7 +2,6 @@ import time
 from app.db.engine import get_collections, query
 from app.core.llm.llm import generator
 from app.core.llm.prompt import get_prompt
-from app.core.rag.format import form
 from app.core.rag.rerank import ranker
 from app.core.rag.filter import filt
 from app.core.config.logging import logger
@@ -25,9 +24,6 @@ class Handler():
             "New user query": {"query": input}
         }))
         self.input = input
-
-    def process(self):
-        self.input = form(self.input)
 
     def filter(self):
         self.filters = filt(self.input)

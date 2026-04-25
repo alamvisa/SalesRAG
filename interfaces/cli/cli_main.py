@@ -2,36 +2,37 @@ from app.core.request import Handler
 from interfaces.cli.spin import Spinner
 from app.pipeline.load import load
 
-def run(l):
+def run(load_required):
     spinner = Spinner()
     print("========= SalesRAG =========")
     try:
-        if l:
-            #spinner.start("Generating embedding...")
+        if load_required:
             load()
             print("Done!")
-            #spinner.stop()
         handler = Handler()
         while True:
-            
-            context = input("Input: ")
-            spinner.start("Processing query...")
-            handler.new_input(context)
-            response = handler.process()
+            try:
+                context = input("Input: ")
+                spinner.start("Processing query...")
+                handler.new_input(context)
+                response = handler.process()
 
-            if response == 1:
-                spinner.update("Filtering...")
-                handler.filter()
+                if response == 1:
+                    spinner.update("Filtering...")
+                    handler.filter()
 
-            spinner.update("Retrieving...")
-            handler.retrieve()
+                spinner.update("Retrieving...")
+                handler.retrieve()
 
-            spinner.update("Generating response...")
-            response = handler.generate()
-            print(f"\nSalesBot: {response}")
-            spinner.stop()
+                spinner.update("Generating response...")
+                response = handler.generate()
+                print(f"\nSalesBot: {response}")
+                spinner.stop()
+            except Exception as e:
+                print(f"\nError: {e}")
+            finally:
+                spinner.stop()
 
-        print("Exiting...")
     
     except KeyboardInterrupt:
         print("\nExiting...")

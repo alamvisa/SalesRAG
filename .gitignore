@@ -12,3 +12,4 @@ wheels/
 
 # Processed data
 data/processed/*
+rag.log

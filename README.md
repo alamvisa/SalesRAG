@@ -1,45 +1,13 @@
 # SalesRAG
 
 ```
-SalesRAG
-├─ app
-│  ├─ core
-│  │  ├─ config
-│  │  │  ├─ logging.py
-│  │  │  └─ settings.py
-│  │  ├─ llm
-│  │  │  ├─ llm.py
-│  │  │  └─ prompt.py
-│  │  ├─ rag
-│  │  │  ├─ filter.py
-│  │  │  ├─ format.py
-│  │  │  ├─ rerank.py
-│  │  │  └─ retrieval.py
-│  │  └─ request.py
-│  ├─ db
-│  │  ├─ engine.py
-│  │  └─ schema.py
-│  ├─ embedding
-│  │  ├─ base.py
-│  │  ├─ bert.py
-│  │  └─ colbert.py
-│  ├─ ingest.py
-│  └─ pipeline
-│     ├─ chunking.py
-│     ├─ index.py
-│     ├─ load.py
-│     └─ process.py
-├─ data
-│  ├─ processed
-│  └─ raw
-│     └─ superstore.csv
-├─ interfaces
-│  └─ cli
-│     ├─ cli_main.py
-│     └─ spin.py
-├─ main.py
-├─ README.md
-├─ requirements.txt
-└─ tests
 
-```
+
+
+Tests:
+
+There are integration tests written to tests directory which test that the basic input-outputs of the RAG are correctly formatted and structured. The tests also query the RAG model with sample queries to check wether correct context is retrieved. These queries do take some time and if running the models on CPU the entire test suite will take significant time.
+
+To test the RAG 
+Run "pytest test_pipeline.py -v"
+"""
