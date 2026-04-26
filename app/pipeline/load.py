@@ -2,11 +2,11 @@ import json
 from pathlib import Path
 from app.core.config.settings import config
 import pandas as pd
-from app.db.engine import EmbeddingFunction, get_client
+from app.db.engine import EmbeddingF, get_client
 import shutil
 
 def get_ef():
-    return EmbeddingFunction()
+    return EmbeddingF()
     
 
 def load_collection(collection_name: str, table_name: str, client, ef):

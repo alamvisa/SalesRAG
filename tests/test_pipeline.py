@@ -217,6 +217,9 @@ class TestContextQuality:
         "category_revenue",
         "subcategory_margins",
         "discounted_products",
+        "region_sales",
+        "comparing_states_sales",
+        "best_cities"
     ])
     def test_context_is_sorted_by_distance(self, handler, query):
         result = run_query(handler, query)
@@ -228,6 +231,9 @@ class TestContextQuality:
         "category_revenue",
         "subcategory_margins",
         "discounted_products",
+        "region_sales",
+        "comparing_states_sales",
+        "best_cities"
     ])
     def test_no_duplicate_chunk_texts(self, handler, query):
         result = run_query(handler, query)
