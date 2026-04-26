@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from app.core.config.settings import config
 import pandas as pd
-from app.db.engine import EmbeddingF, get_client
+from app.db.engine import EmbeddingF, get_client, reset_client
 import shutil
 
 def get_ef():
@@ -71,11 +71,11 @@ def build_all_collections(aggregate_tables, client, ef):
     return collections
 
 def load():
-    chroma_path = config.DATA_PROCESSED_DIR / "chroma"
+    chroma_path = config.DATA_PROCESSED_DIR / config.DB_NAME
+    reset_client()
     if chroma_path.exists():
         print("Clearing existing ChromaDB...")
         shutil.rmtree(chroma_path)
-
     client = get_client()
     ef = get_ef()
     aggregate_tables = [
