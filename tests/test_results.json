@@ -1,0 +1,409 @@
+[
+  {
+    "query": "Which product category generates the most revenue?",
+    "response": "The Technology category generates the most revenue, with total sales amounting to $836,154.03.",
+    "context": [
+      {
+        "source": "agg_item_category",
+        "distance": 0.297019898891449,
+        "text": "Product category report for Technology: The Technology category the most sold product was Logitech 910-002974 M325 Wireless Mouse for Web Scrolling and was overall moderately profitable category with a margin of 17.4% while having one of the strongest performing sales among all categories. The total sales were $836154.03. Additionally the average discount given was 13.2% (54.9% of orders were discounted)."
+      },
+      {
+        "source": "agg_year_x_category",
+        "distance": 0.34363245964050293,
+        "text": "Sales report for Technology in 2016: In 2016, the Technology category the most sold product was LF Elite 3D Dazzle Designer Hard Case Cover, Lf Stylus Pen and Wiper For Apple Iphone 5c Mini Lite and was overall moderately profitable year within the category with a margin of 17.6% while having an above-average performing sales among all year-category combinations. The total sales were $226364.18. Additionally the average discount given was 13.7% (55.6% of orders were discounted)."
+      },
+      {
+        "source": "agg_year_x_category",
+        "distance": 0.3353514075279236,
+        "text": "Sales report for Technology in 2017: In 2017, the Technology category the most sold product was Logitech Desktop MK120 Mouse and keyboard Combo and was overall moderately profitable year within the category with a margin of 18.7% while having one of the strongest performing sales among all year-category combinations. The total sales were $271730.81. Additionally the average discount given was 13.0% (54.6% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3328437805175781,
+        "text": "Product sub-category report for Tables: The Tables sub-category the most sold product was KI Adjustable-Height Table and was overall unprofitable sub-category with a margin of -8.6% while having an above-average performing sales among all sub-categories. The total sales were $206965.53. Additionally the average discount given was 26.1% (77.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_category",
+        "distance": 0.33152246475219727,
+        "text": "Product category report for Office Supplies: The Office Supplies category the most sold product was Staple envelope and was overall moderately profitable category with a margin of 17.0% while having one of the weakest performing sales among all categories. The total sales were $719047.03. Additionally the average discount given was 15.7% (48.1% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.32871222496032715,
+        "text": "Sales report for Technology in September 2016: In September 2016, the Technology category the most sold product was Geemarc AmpliPOWER60 and was overall very profitable month within the category with a margin of 21.5% while having an above-average performing sales among all month-category combinations. The total sales were $22883.41. Additionally the average discount given was 11.4% (50.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.32543134689331055,
+        "text": "Product sub-category report for Paper: The Paper sub-category the most sold product was Easy-staple paper and was overall very profitable sub-category with a margin of 43.4% while having a below-average performing sales among all sub-categories. The total sales were $78479.21. Additionally the average discount given was 7.5% (37.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3206510543823242,
+        "text": "Product sub-category report for Storage: The Storage sub-category the most sold product was Hot File 7-Pocket, Floor Stand and was overall barely profitable sub-category with a margin of 9.5% while having an above-average performing sales among all sub-categories. The total sales were $223843.61. Additionally the average discount given was 7.5% (37.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.33527427911758423,
+        "text": "Product sub-category report for Art: The Art sub-category the most sold product was Staples in misc. colors and was overall very profitable sub-category with a margin of 24.1% while having a below-average performing sales among all sub-categories. The total sales were $27118.79. Additionally the average discount given was 7.5% (37.4% of orders were discounted)."
+      }
+    ]
+  },
+  {
+    "query": "What sub-categories have the highest profit margins?",
+    "response": "The sub-categories with the highest profit margins are Labels (44.4%), Paper (43.4%), and Envelopes (42.3%). These sub-categories are profitable, with the Labels sub-category having the highest margin among all.",
+    "context": [
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.35424482822418213,
+        "text": "Product sub-category report for Fasteners: The Fasteners sub-category the most sold product was Staples and was overall very profitable sub-category with a margin of 31.4% while having one of the weakest performing sales among all sub-categories. The total sales were $3024.28. Additionally the average discount given was 8.2% (41.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.317405641078949,
+        "text": "Product sub-category report for Envelopes: The Envelopes sub-category the most sold product was Staple envelope and was overall very profitable sub-category with a margin of 42.3% while having a below-average performing sales among all sub-categories. The total sales were $16476.40. Additionally the average discount given was 8.0% (40.2% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.32436829805374146,
+        "text": "Product sub-category report for Labels: The Labels sub-category the most sold product was Avery File Folder Labels and was overall very profitable sub-category with a margin of 44.4% while having one of the weakest performing sales among all sub-categories. The total sales were $12486.31. Additionally the average discount given was 6.9% (34.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.332258403301239,
+        "text": "Product sub-category report for Storage: The Storage sub-category the most sold product was Hot File 7-Pocket, Floor Stand and was overall barely profitable sub-category with a margin of 9.5% while having an above-average performing sales among all sub-categories. The total sales were $223843.61. Additionally the average discount given was 7.5% (37.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.31078946590423584,
+        "text": "Product sub-category report for Paper: The Paper sub-category the most sold product was Easy-staple paper and was overall very profitable sub-category with a margin of 43.4% while having a below-average performing sales among all sub-categories. The total sales were $78479.21. Additionally the average discount given was 7.5% (37.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.31621503829956055,
+        "text": "Product sub-category report for Art: The Art sub-category the most sold product was Staples in misc. colors and was overall very profitable sub-category with a margin of 24.1% while having a below-average performing sales among all sub-categories. The total sales were $27118.79. Additionally the average discount given was 7.5% (37.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3497651219367981,
+        "text": "Product sub-category report for Phones: The Phones sub-category the most sold product was Geemarc AmpliPOWER60 and was overall moderately profitable sub-category with a margin of 13.5% while having one of the strongest performing sales among all sub-categories. The total sales were $330007.05. Additionally the average discount given was 15.5% (65.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.33067864179611206,
+        "text": "Product sub-category report for Appliances: The Appliances sub-category the most sold product was Staple holder and was overall moderately profitable sub-category with a margin of 16.9% while having a below-average performing sales among all sub-categories. The total sales were $107532.16. Additionally the average discount given was 16.7% (41.8% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3519176244735718,
+        "text": "Product sub-category report for Binders: The Binders sub-category the most sold product was Avery Non-Stick Binders and was overall moderately profitable sub-category with a margin of 14.9% while having an above-average performing sales among all sub-categories. The total sales were $203412.73. Additionally the average discount given was 37.2% (77.9% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3342825174331665,
+        "text": "Product sub-category report for Furnishings: The Furnishings sub-category the most sold product was Staple-based wall hangings and was overall moderately profitable sub-category with a margin of 14.2% while having a below-average performing sales among all sub-categories. The total sales were $91705.16. Additionally the average discount given was 13.8% (40.3% of orders were discounted)."
+      }
+    ]
+  },
+  {
+    "query": "Which products are frequently sold at a discount?",
+    "response": "Staples and G.E. Halogen Desk Lamp Bulbs are frequently sold at a discount, with an average discount rate of 16.0% and 16.0% respectively. Staples, in particular, had a high discount rate of 18.2% in February 2017, and G.E. Halogen Desk Lamp Bulbs had a discount rate of 16.0% in its sales data. Additionally, the Art sub-category had a discount rate of 7.5% for the most sold product, Staples in misc. colors.",
+    "context": [
+      {
+        "source": "agg_month",
+        "distance": 0.3767601251602173,
+        "text": "Sales report for month February 2016: In February 2016, the most sold product was Advantus Push Pins and was overall very profitable month with a margin of 21.8% while having a below-average performing sales among all months. The total sales were $22978.81 and compared to the last period, there was strong growth. Additionally the average discount given was 9.6% (32.5% of orders were discounted)."
+      },
+      {
+        "source": "agg_month",
+        "distance": 0.36227452754974365,
+        "text": "Sales report for month February 2017: In February 2017, the most sold product was Staples and was overall barely profitable month with a margin of 7.9% while having a below-average performing sales among all months. The total sales were $20301.13 and compared to the last period, there was shrinkage. Additionally the average discount given was 18.2% (57.9% of orders were discounted)."
+      },
+      {
+        "source": "agg_month",
+        "distance": 0.3770381212234497,
+        "text": "Sales report for month October 2014: In October 2014, the most sold product was Global High-Back Leather Tilter, Burgundy and was overall moderately profitable month with a margin of 11.0% while having a below-average performing sales among all months. The total sales were $31453.39 and compared to the last period, there was shrinkage. Additionally the average discount given was 16.0% (57.2% of orders were discounted)."
+      },
+      {
+        "source": "agg_city",
+        "distance": 0.3791472911834717,
+        "text": "City sales data for Normal: In the city of Normal the most sold product was Office Star - Contemporary Task Swivel chair with Loop Arms, Charcoal and was overall unprofitable city with a margin of -30.0% while having a below-average performing sales among all cities. The total sales were $366.74. Additionally the average discount given was 30.0% (100.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_month",
+        "distance": 0.37238556146621704,
+        "text": "Sales report for month October 2016: In October 2016, the most sold product was Fiskars Softgrip Scissors and was overall very profitable month with a margin of 27.2% while having an above-average performing sales among all months. The total sales were $59687.75 and compared to the last period, there was shrinkage. Additionally the average discount given was 14.7% (48.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_month",
+        "distance": 0.35772013664245605,
+        "text": "Sales report for month October 2017: In October 2017, the most sold product was Staples and was overall moderately profitable month with a margin of 11.9% while having an above-average performing sales among all months. The total sales were $77776.92 and compared to the last period, there was shrinkage. Additionally the average discount given was 17.4% (58.7% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_of_year",
+        "distance": 0.3489329218864441,
+        "text": "Seasonal sales data for October: Across all years, October the most sold product was Staples and was overall moderately profitable seasonal month with a margin of 15.9% while having an above-average performing sales among all seasonal months. The total sales were $200322.98. Additionally the average discount given was 16.3% (54.8% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3797367811203003,
+        "text": "Product sub-category report for Supplies: The Supplies sub-category the most sold product was Staple remover and was overall unprofitable sub-category with a margin of -2.5% while having a below-average performing sales among all sub-categories. The total sales were $46673.54. Additionally the average discount given was 7.7% (38.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_of_year",
+        "distance": 0.38309168815612793,
+        "text": "Seasonal sales data for May: Across all years, May the most sold product was Wilson Jones Legal Size Ring Binders and was overall moderately profitable seasonal month with a margin of 14.5% while having a below-average performing sales among all seasonal months. The total sales were $155028.81. Additionally the average discount given was 16.5% (52.9% of orders were discounted)."
+      },
+      {
+        "source": "agg_product",
+        "distance": 0.3738018870353699,
+        "text": "Sales data for product G.E. Halogen Desk Lamp Bulbs: G.E. Halogen Desk Lamp Bulbs is overall very profitable product with a margin of 36.4% while having a below-average performing sales among all products. The total sales were $62.82. Additionally the average discount given was 16.0% (40.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_of_year",
+        "distance": 0.3747202157974243,
+        "text": "Seasonal sales data for March: Across all years, March the most sold product was Wilson Jones Leather-Like Binders with DublLock Round Rings and was overall moderately profitable seasonal month with a margin of 13.9% while having an above-average performing sales among all seasonal months. The total sales were $205005.49. Additionally the average discount given was 15.5% (51.9% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3712257146835327,
+        "text": "Product sub-category report for Art: The Art sub-category the most sold product was Staples in misc. colors and was overall very profitable sub-category with a margin of 24.1% while having a below-average performing sales among all sub-categories. The total sales were $27118.79. Additionally the average discount given was 7.5% (37.4% of orders were discounted)."
+      }
+    ]
+  },
+  {
+    "query": "Which region has the best sales performance?",
+    "response": "The East region has the best sales performance, with the most sold product being Xerox 191 in 2017, and total sales reaching $213082.90. The East region also had a strong sales performance in 2015, with the most sold product being Staple envelope and total sales of $156332.06. Additionally, the East region had a strong sales performance in 2016, with the most sold product being Easy-staple paper and total sales of $180685.82. Overall, the East region consistently performed well in terms of sales across multiple years.",
+    "context": [
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3213592767715454,
+        "text": "Sales report for the West region in 2017: In 2017, the West region the most sold product was Lesro Sheffield Collection Coffee Table, End Table, Center Table, Corner Table and was overall moderately profitable region for a year with a margin of 17.5% while having one of the strongest performing sales among all region-year combinations. The total sales were $250128.37. Additionally the average discount given was 10.5% (44.2% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3126877546310425,
+        "text": "Sales report for the West region in 2016: In 2016, the West region the most sold product was GBC Standard Therm-A-Bind Covers and was overall moderately profitable region for a year with a margin of 12.8% while having an above-average performing sales among all region-year combinations. The total sales were $187480.18. Additionally the average discount given was 11.7% (48.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_region",
+        "distance": 0.2576790452003479,
+        "text": "Regional sales data for West: The West region the most sold product was Staples and was overall moderately profitable region with a margin of 14.9% while having one of the strongest performing sales among all regions. The total sales were $725457.82. Additionally the average discount given was 10.9% (46.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.2937222719192505,
+        "text": "Sales report for the West region in 2014: In 2014, the West region the most sold product was Staples and was overall moderately profitable region for a year with a margin of 13.6% while having an above-average performing sales among all region-year combinations. The total sales were $147883.03. Additionally the average discount given was 10.3% (46.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3043709993362427,
+        "text": "Sales report for the Central region in 2016: In 2016, the Central region the most sold product was Staples and was overall moderately profitable region for a year with a margin of 13.5% while having an above-average performing sales among all region-year combinations. The total sales were $147429.38. Additionally the average discount given was 22.2% (62.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.28932154178619385,
+        "text": "Sales report for the East region in 2017: In 2017, the East region the most sold product was Xerox 191 and was overall moderately profitable region for a year with a margin of 15.6% while having one of the strongest performing sales among all region-year combinations. The total sales were $213082.90. Additionally the average discount given was 14.8% (49.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3186527490615845,
+        "text": "Sales report for the East region in 2015: In 2015, the East region the most sold product was Staple envelope and was overall moderately profitable region for a year with a margin of 13.5% while having an above-average performing sales among all region-year combinations. The total sales were $156332.06. Additionally the average discount given was 13.5% (45.7% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3190513849258423,
+        "text": "Sales report for the South region in 2014: In 2014, the South region the most sold product was Staple envelope and was overall moderately profitable region for a year with a margin of 11.4% while having a below-average performing sales among all region-year combinations. The total sales were $103845.84. Additionally the average discount given was 12.0% (43.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.2883593440055847,
+        "text": "Sales report for the South region in 2017: In 2017, the South region the most sold product was Staples and was overall barely profitable region for a year with a margin of 7.2% while having a below-average performing sales among all region-year combinations. The total sales were $122905.86. Additionally the average discount given was 15.5% (56.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.31807035207748413,
+        "text": "Sales report for the East region in 2014: In 2014, the East region the most sold product was Staple envelope and was overall moderately profitable region for a year with a margin of 13.3% while having a below-average performing sales among all region-year combinations. The total sales were $128680.46. Additionally the average discount given was 15.8% (53.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3010510206222534,
+        "text": "Sales report for the East region in 2016: In 2016, the East region the most sold product was Easy-staple paper and was overall moderately profitable region for a year with a margin of 11.1% while having an above-average performing sales among all region-year combinations. The total sales were $180685.82. Additionally the average discount given was 14.3% (49.2% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3112427592277527,
+        "text": "Sales report for the West region in 2015: In 2015, the West region the most sold product was Easy-staple paper and was overall moderately profitable region for a year with a margin of 14.6% while having a below-average performing sales among all region-year combinations. The total sales were $139966.25. Additionally the average discount given was 11.3% (48.0% of orders were discounted)."
+      }
+    ]
+  },
+  {
+    "query": "Compare sales performance across different states.",
+    "response": "Sales performance varies significantly across different states. California had the highest total sales at $457,687.63, with Staples being the most sold product and a moderate profit margin of 16.7%. Louisiana's Technology category, with AT&T TR1909W as the most sold product, had a very profitable margin of 35.9% but below-average sales compared to other state-category combinations. Pennsylvania's Technology category, with AT&T 841000 Phone as the most sold product, had an unprofitable margin of -7.6% but one of the strongest sales performances among all states. Texas had the highest sales performance with Staple envelope as the most sold product and a strong sales performance, but an unprofitable margin of -15.1%. Florida's Technology category, with Logitech P710e Mobile Speakerphone as the most sold product, had a barely profitable margin of 1.1% and one of the strongest sales performances among all states. Delaware's Staple envelope had a very profitable margin of 36.3% but a below-average sales performance. Virginia's Technology category, with AT&T CL82213 as the most sold product, had a very profitable margin of 30.7% and an above-average sales performance. In 201",
+    "context": [
+      {
+        "source": "agg_state",
+        "distance": 0.2994457483291626,
+        "text": "State sales data for California: The state of California the most sold product was Staples and was overall moderately profitable state with a margin of 16.7% while having one of the strongest performing sales among all states. The total sales were $457687.63. Additionally the average discount given was 7.3% (37.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_state_x_category",
+        "distance": 0.37963563203811646,
+        "text": "Sales report for Technology in Louisiana: In Louisiana, the Technology category the most sold product was AT&T TR1909W and was overall very profitable state within the category with a margin of 35.9% while having a below-average performing sales among all state-category combinations. The total sales were $2830.84. Additionally the average discount given was 0.0% (0.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_state_x_category",
+        "distance": 0.3830004930496216,
+        "text": "Sales report for Technology in Pennsylvania: In Pennsylvania, the Technology category the most sold product was AT&T 841000 Phone and was overall unprofitable state within the category with a margin of -7.6% while having one of the strongest performing sales among all state-category combinations. The total sales were $42215.27. Additionally the average discount given was 34.2% (100.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_state",
+        "distance": 0.33682936429977417,
+        "text": "State sales data for Texas: The state of Texas the most sold product was Staple envelope and was overall unprofitable state with a margin of -15.1% while having one of the strongest performing sales among all states. The total sales were $170188.05. Additionally the average discount given was 37.0% (100.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_state_x_category",
+        "distance": 0.37197405099868774,
+        "text": "Sales report for Technology in Florida: In Florida, the Technology category the most sold product was Logitech\u00a0P710e Mobile Speakerphone and was overall barely profitable state within the category with a margin of 1.1% while having one of the strongest performing sales among all state-category combinations. The total sales were $46968.04. Additionally the average discount given was 22.6% (100.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_state",
+        "distance": 0.3326929807662964,
+        "text": "State sales data for Delaware: The state of Delaware the most sold product was Staple envelope and was overall very profitable state with a margin of 36.3% while having a below-average performing sales among all states. The total sales were $27451.07. Additionally the average discount given was 0.6% (2.1% of orders were discounted)."
+      },
+      {
+        "source": "agg_state_x_category",
+        "distance": 0.3685894012451172,
+        "text": "Sales report for Technology in Virginia: In Virginia, the Technology category the most sold product was AT&T CL82213 and was overall very profitable state within the category with a margin of 30.7% while having an above-average performing sales among all state-category combinations. The total sales were $24145.16. Additionally the average discount given was 0.0% (0.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_year",
+        "distance": 0.3934938311576843,
+        "text": "Annual sales report for year 2015: In 2015, the most sold product was Easy-staple paper and was overall moderately profitable year with a margin of 13.1% while having one of the weakest performing sales among all years. The total sales were $470532.51 and compared to the last period, there was shrinkage. Additionally the average discount given was 15.6% (51.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_year",
+        "distance": 0.38114094734191895,
+        "text": "Annual sales report for year 2017: In 2017, the most sold product was Easy-staple paper and was overall moderately profitable year with a margin of 12.7% while having one of the strongest performing sales among all years. The total sales were $733215.26 and compared to the last period, there was strong growth. Additionally the average discount given was 15.6% (52.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_state",
+        "distance": 0.3350232243537903,
+        "text": "State sales data for Florida: The state of Florida the most sold product was Zipper Ring Binder Pockets and was overall unprofitable state with a margin of -3.8% while having an above-average performing sales among all states. The total sales were $89473.71. Additionally the average discount given was 29.9% (100.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_year",
+        "distance": 0.38210856914520264,
+        "text": "Annual sales report for year 2016: In 2016, the most sold product was Staple envelope and was overall moderately profitable year with a margin of 13.4% while having an above-average performing sales among all years. The total sales were $609205.60 and compared to the last period, there was strong growth. Additionally the average discount given was 15.5% (51.8% of orders were discounted)."
+      },
+      {
+        "source": "agg_state_x_category",
+        "distance": 0.3751060366630554,
+        "text": "Sales report for Technology in Massachusetts: In Massachusetts, the Technology category the most sold product was GE DSL Phone Line Filter and was overall very profitable state within the category with a margin of 30.7% while having a below-average performing sales among all state-category combinations. The total sales were $5726.63. Additionally the average discount given was 0.0% (0.0% of orders were discounted)."
+      }
+    ]
+  },
+  {
+    "query": "Which cities are the top performers?",
+    "response": "The top-performing cities in terms of sales are California, Texas, Florida, and Virginia. California had the highest total sales, with Staples being the most sold product. Texas had the highest sales performance, with Staple envelope as the most sold product. Florida had a strong sales performance, with Logitech P710e Mobile Speakerphone as the most sold product. Virginia had an above-average sales performance, with AT&T CL82213 as the most sold product. These cities consistently performed well in terms of sales across different product categories and years.",
+    "context": []
+  },
+  {
+    "query": "Compare Technology vs. Furniture sales trends.",
+    "response": "In 2016, the Furniture category had a barely profitable year with a margin of 3.5% and an above-average performing sales among all year-category combinations, while the Technology category had a barely profitable year with a margin of 3.5% and a below-average performing sales among all year-category combinations. In 2014, the Furniture category had a barely profitable year with a margin of 3.5% and a below-average performing sales among all year-category combinations, while the Technology category had a barely profitable year with a margin of 3.5% and a below-average performing sales among all year-category combinations. In 2015, the Furniture category had a barely profitable year with a margin of 1.8% and a below-average performing sales among all year-category combinations, while the Technology category had a barely profitable year with a margin of 1.8% and a below-average performing sales among all year-category combinations. In January 2016, the Furniture category had a barely profitable month with a margin of 4.0% and a below-average performing sales among all month-category combinations, while the Technology category had a barely profitable month with a margin of 9.2% and a below-average performing sales among all month-category combinations",
+    "context": [
+      {
+        "source": "agg_year_x_category",
+        "distance": 0.3094909191131592,
+        "text": "Sales report for Furniture in 2016: In 2016, the Furniture category the most sold product was Chromcraft Round Conference Tables and was overall barely profitable year within the category with a margin of 3.5% while having an above-average performing sales among all year-category combinations. The total sales were $198901.44. Additionally the average discount given was 17.7% (59.8% of orders were discounted)."
+      },
+      {
+        "source": "agg_year_x_category",
+        "distance": 0.3173482418060303,
+        "text": "Sales report for Furniture in 2014: In 2014, the Furniture category the most sold product was KI Adjustable-Height Table and was overall barely profitable year within the category with a margin of 3.5% while having a below-average performing sales among all year-category combinations. The total sales were $157192.85. Additionally the average discount given was 18.2% (62.9% of orders were discounted)."
+      },
+      {
+        "source": "agg_year_x_category",
+        "distance": 0.3147242069244385,
+        "text": "Sales report for Furniture in 2015: In 2015, the Furniture category the most sold product was Bretford CR4500 Series Slim Rectangular Table and was overall barely profitable year within the category with a margin of 1.8% while having a below-average performing sales among all year-category combinations. The total sales were $170518.24. Additionally the average discount given was 16.9% (60.2% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.3170572519302368,
+        "text": "Sales report for Furniture in January 2016: In January 2016, the Furniture category the most sold product was Tenex Contemporary Contur Chairmats for Low and Medium Pile Carpet, Computer, 39\" x 49\" and was overall barely profitable month within the category with a margin of 4.0% while having a below-average performing sales among all month-category combinations. The total sales were $7622.74. Additionally the average discount given was 15.5% (54.5% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.3182273507118225,
+        "text": "Sales report for Furniture in March 2017: In March 2017, the Furniture category the most sold product was GE General Purpose, Extra Long Life, Showcase & Floodlight Incandescent Bulbs and was overall barely profitable month within the category with a margin of 9.2% while having a below-average performing sales among all month-category combinations. The total sales were $10893.44. Additionally the average discount given was 13.8% (50.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.324093222618103,
+        "text": "Sales report for Furniture in August 2015: In August 2015, the Furniture category the most sold product was Bevis 36 x 72 Conference Tables and was overall unprofitable month within the category with a margin of -5.1% while having a below-average performing sales among all month-category combinations. The total sales were $9638.59. Additionally the average discount given was 20.8% (65.6% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.31949174404144287,
+        "text": "Sales report for Furniture in March 2016: In March 2016, the Furniture category the most sold product was Chromcraft Round Conference Tables and was overall unprofitable month within the category with a margin of -4.3% while having a below-average performing sales among all month-category combinations. The total sales were $12801.09. Additionally the average discount given was 20.3% (63.4% of orders were discounted)."
+      },
+      {
+        "source": "agg_year_x_category",
+        "distance": 0.3216020464897156,
+        "text": "Sales report for Furniture in 2017: In 2017, the Furniture category the most sold product was Global Wood Trimmed Manager's Task Chair, Khaki and was overall barely profitable year within the category with a margin of 1.4% while having an above-average performing sales among all year-category combinations. The total sales were $215387.27. Additionally the average discount given was 17.0% (60.1% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.3216363191604614,
+        "text": "Sales report for Furniture in January 2015: In January 2015, the Furniture category the most sold product was Seth Thomas 13 1/2\" Wall Clock and was overall unprofitable month within the category with a margin of -25.7% while having a below-average performing sales among all month-category combinations. The total sales were $11739.94. Additionally the average discount given was 23.5% (66.7% of orders were discounted)."
+      },
+      {
+        "source": "agg_item_sub_category",
+        "distance": 0.3771038055419922,
+        "text": "Product sub-category report for Furnishings: The Furnishings sub-category the most sold product was Staple-based wall hangings and was overall moderately profitable sub-category with a margin of 14.2% while having a below-average performing sales among all sub-categories. The total sales were $91705.16. Additionally the average discount given was 13.8% (40.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.30236154794692993,
+        "text": "Sales report for Furniture in November 2017: In November 2017, the Furniture category the most sold product was 9-3/4 Diameter Round Wall Clock and was overall barely profitable month within the category with a margin of 1.1% while having one of the strongest performing sales among all month-category combinations. The total sales were $37056.72. Additionally the average discount given was 16.6% (60.6% of orders were discounted)."
+      },
+      {
+        "source": "agg_month_x_category",
+        "distance": 0.3230288624763489,
+        "text": "Sales report for Furniture in June 2014: In June 2014, the Furniture category the most sold product was KI Adjustable-Height Table and was overall barely profitable month within the category with a margin of 4.5% while having a below-average performing sales among all month-category combinations. The total sales were $13206.13. Additionally the average discount given was 15.7% (53.3% of orders were discounted)."
+      }
+    ]
+  },
+  {
+    "query": "How does the West region compare to the East in terms of profit?",
+    "response": "The West region had a higher profit margin compared to the East region. In 2014, the West region had a profit margin of 13.6%, while the East region had a profit margin of 16.7%. In 2015, the West region had a profit margin of 14.6%, while the East region had a profit margin of 14.6%. In 2016, the West region had a profit margin of 12.8%, while the East region had a profit margin of 12.8%. In 2017, the West region had a profit margin of 17.5%, while the East region had a profit margin of 17.5%. Overall, the West region had a slightly lower profit margin compared to the East region, but the difference was not significant. The West region had a total profit margin of 14.9%, while the East region had a total profit margin of 16.7%. The West region had a total sales of $725457.82, while the East region had a total sales of $457,687.63. The West region had a higher total sales compared to the East region. The West region had a higher average discount given, with 46.4% of",
+    "context": [
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.2718435525894165,
+        "text": "Sales report for the West region in 2014: In 2014, the West region the most sold product was Staples and was overall moderately profitable region for a year with a margin of 13.6% while having an above-average performing sales among all region-year combinations. The total sales were $147883.03. Additionally the average discount given was 10.3% (46.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.26050353050231934,
+        "text": "Sales report for the West region in 2015: In 2015, the West region the most sold product was Easy-staple paper and was overall moderately profitable region for a year with a margin of 14.6% while having a below-average performing sales among all region-year combinations. The total sales were $139966.25. Additionally the average discount given was 11.3% (48.0% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.30079734325408936,
+        "text": "Sales report for the West region in 2016: In 2016, the West region the most sold product was GBC Standard Therm-A-Bind Covers and was overall moderately profitable region for a year with a margin of 12.8% while having an above-average performing sales among all region-year combinations. The total sales were $187480.18. Additionally the average discount given was 11.7% (48.3% of orders were discounted)."
+      },
+      {
+        "source": "agg_region_x_year",
+        "distance": 0.3159319758415222,
+        "text": "Sales report for the West region in 2017: In 2017, the West region the most sold product was Lesro Sheffield Collection Coffee Table, End Table, Center Table, Corner Table and was overall moderately profitable region for a year with a margin of 17.5% while having one of the strongest performing sales among all region-year combinations. The total sales were $250128.37. Additionally the average discount given was 10.5% (44.2% of orders were discounted)."
+      },
+      {
+        "source": "agg_region",
+        "distance": 0.25242650508880615,
+        "text": "Regional sales data for West: The West region the most sold product was Staples and was overall moderately profitable region with a margin of 14.9% while having one of the strongest performing sales among all regions. The total sales were $725457.82. Additionally the average discount given was 10.9% (46.4% of orders were discounted)."
+      }
+    ]
+  }
+]

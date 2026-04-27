@@ -17,7 +17,7 @@ QUERIES = [
     "Which products are frequently sold at a discount?",
     "Which region has the best sales performance?",
     "Compare sales performance across different states.",
-    "Which cities are the top performers?"
+    "Which cities are the top performers?",
     "Compare Technology vs. Furniture sales trends.",
     "How does the West region compare to the East in terms of profit?"
 ]
