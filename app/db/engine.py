@@ -34,13 +34,13 @@ class EmbeddingF(EmbeddingFunction):
     def __call__(self, input: Documents) -> Embeddings:
         return self.model.encode(input, normalize_embeddings=True).tolist()
     
-def get_collections():
+def get_collections(selected_tables = collection_names):
     client = get_client()
     ef = EmbeddingF()
 
     return {
         name: client.get_collection(name=name, embedding_function=ef)
-        for name in collection_names
+        for name in selected_tables
     }
 
 def query(collections, query_text, filters = None):
@@ -48,7 +48,6 @@ def query(collections, query_text, filters = None):
     for name, collection in collections.items():
 
         n = min(config.N_RESULTS, collection.count())
-        print(f"Querying {name}, count={n}")
         if name == "":
             pass
         query_kwargs = dict(
