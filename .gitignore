@@ -1,11 +1,12 @@
 # Environment variables
 .env
 
-# Virtual environment
-venv
+# VSCode files
+.vscode
 
 # Python-generated files
 __pycache__/
+.pytest_cache/
 build/
 dist/
 wheels/
@@ -13,3 +14,4 @@ wheels/
 # Processed data
 data/processed/*
 rag.log
+tests/test_results.json

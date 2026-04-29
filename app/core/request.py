@@ -27,8 +27,8 @@ class Handler():
     def retrieve(self):
         selected_tables = self.ranker.route(self.input)
         collection = get_collections(selected_tables)
-        _, _ = get_filters(self.input)
-        retrieved = query(collection, self.input)
+        filters = get_filters(self.input)
+        retrieved = query(collection, self.input, filters=filters)
         self.context = self.ranker.rank(self.input, retrieved)
 
     def generate(self):

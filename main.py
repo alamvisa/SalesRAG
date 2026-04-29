@@ -4,9 +4,10 @@ import warnings
 
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
-#os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["HF_HUB_VERBOSITY"] = "error"
 os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+os.environ["TQDM_DISABLE"] = "1"
 #os.environ["SENTENCE_TRANSFORMERS_HOME"] = str(__import__('pathlib').Path.home() / ".cache" / "sentence_transformers")
 
 warnings.filterwarnings("ignore")

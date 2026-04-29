@@ -4,14 +4,23 @@ import chromadb
 from app.core.config.settings import config
 import torch
 
-collection_names = [
-    'agg_month', 'agg_quarter', 'agg_year',
-    'agg_item_category', 'agg_item_sub_category',
-    'agg_city', 'agg_state', 'agg_region', 'agg_product',
-    'agg_month_x_category', 'agg_year_x_category',
-    'agg_state_x_category', 'agg_month_of_year',
-    'agg_region_x_year', 'transactions'
-]
+collection_names = {
+    'agg_month': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "month", "year"],
+    'agg_quarter': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "quarter", "year"], 
+    'agg_year': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "year"],
+    'agg_item_category': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "category"], 
+    'agg_item_sub_category': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "sub-category"],
+    'agg_city': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "city"], 
+    'agg_state': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "state"], 
+    'agg_region': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "region"], 
+    'agg_product': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "product"],
+    'agg_month_x_category': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "month", "year", "category"], 
+    'agg_year_x_category': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "year", "category"],
+    'agg_state_x_category': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "state", "category"], 
+    'agg_month_of_year': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "month"],
+    'agg_region_x_year': ["type", "sales", "profits", "quantity", "margin", "discount_rate", "region", "year"], 
+    'transactions': ["type"]
+}
 
 _client = None
 
@@ -34,7 +43,7 @@ class EmbeddingF(EmbeddingFunction):
     def __call__(self, input: Documents) -> Embeddings:
         return self.model.encode(input, normalize_embeddings=True).tolist()
     
-def get_collections(selected_tables = collection_names):
+def get_collections(selected_tables = collection_names.keys()):
     client = get_client()
     ef = EmbeddingF()
 
@@ -56,7 +65,13 @@ def query(collections, query_text, filters = None):
             include=["documents", "metadatas", "distances"]
         )
         if filters:
-            query_kwargs["where"] = filters
+            active_filters = {}
+            for key, value in filters.items():
+                if key in collection_names[name]:
+                    active_filters[key] = value
+            if active_filters:
+                query_kwargs["where"] = active_filters
+        print(query_kwargs)
         hits = collection.query(**query_kwargs)
 
         for doc, meta, dist in zip(
@@ -64,13 +79,15 @@ def query(collections, query_text, filters = None):
             hits["metadatas"][0],
             hits["distances"][0]
         ):
-            if dist < config.THRESHOLD:
-                results.append({
-                    "text": doc,
-                    "metadata": meta,
-                    "distance": dist,
-                    "source": name
-                })
+            if dist >= config.THRESHOLD:
+                continue
+
+            results.append({
+                "text": doc,
+                "metadata": meta,
+                "distance": dist,
+                "source": name
+            })
 
     return sorted(results, key=lambda x: x["distance"])
 

@@ -10,10 +10,10 @@ MONTHS = {
 }
 METRIC_KEYWORDS = {
     "sales":         ["sales", "revenue", "income", "earning", "turnover"],
-    "profits":       ["profit", "profitable", "profitability", "gain", "earning"],
-    "margin":        ["margin", "efficiency", "markup"],
-    "quantity":      ["quantity", "units", "volume", "ordered", "popular", "demand"],
-    "discount_rate": ["discount", "discounted", "markdown", "reduced"],
+    # "profits":       ["profit", "profitable", "profitability", "gain", "earning"],
+    # "margin":        ["margin", "efficiency", "markup"],
+    # "quantity":      ["quantity", "units", "volume", "ordered", "popular", "demand"],
+    # "discount_rate": ["discount", "discounted", "markdown", "reduced"],
 }
 DESC_KEYWORDS = ["best", "top", "highest", "most", "greatest", "leading", "largest", "performance", "frequently", "often"]
 ASC_KEYWORDS  = ["worst", "lowest", "least", "bottom", "weakest", "smallest", "poorest", "rarely"]
@@ -22,7 +22,6 @@ ASC_KEYWORDS  = ["worst", "lowest", "least", "bottom", "weakest", "smallest", "p
 def get_filters(query):
     q = query.lower()
     conditions = []
-    meta = None
 
     # Year
     years = re.findall(r'\b(201[4-7])\b', q)
@@ -55,10 +54,10 @@ def get_filters(query):
     for metric, keywords in METRIC_KEYWORDS.items():
         if any(kw in q for kw in keywords):
             if any(kw in q for kw in DESC_KEYWORDS):
-                meta = (metric, "DESC")
+                conditions.append({"sales_rank_desc": {"$le": 10}})
                 found_metric = True
             elif any(kw in q for kw in ASC_KEYWORDS):
-                meta = (metric, "ASC")
+                conditions.append({"sales_rank_asc": {"$le": 10}})
                 found_metric = True
         if found_metric:
             break
@@ -73,9 +72,8 @@ def get_filters(query):
     logger.info({
             "filter_generation": {
                 "query": query,
-                "generated_filters": where,
-                "generated_metrics": meta
+                "generated_filters": where
             }
         })
 
-    return where, meta
+    return where

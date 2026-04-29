@@ -6,6 +6,7 @@ import json
 import calendar
 
 def nlp(df):
+    """Generate a natural language description for each transaction row."""
     df["description"] = df.apply(
         lambda row: f'On {row["Order Date"]}, {row["Segment"]} {row["Customer Name"]} from {row["City"]}, {row["Country"]} ordered {row["Quantity"]} {row["Product Name"]} item{"s" if row["Quantity"]>1 else ""} for ${row["Sales"]:.2f} with a {row["Discount"]} discount yielding a profit of {row["Profit"]}. The order was shipped on {row["Ship Date"]} via {row["Ship Mode"]}. Category of the item is {row["Category"]} and sub-category {row["Sub-Category"]}',
         axis=1
@@ -13,6 +14,7 @@ def nlp(df):
     return df
 
 def agg(df, keys, fr=None):
+    """Group df by keys and compute sales metrics."""
     if isinstance(keys, str):
         keys = [keys]
 
@@ -92,6 +94,12 @@ def aggregate_by_region_x_year(df):
 
 
 def report(tables, r_table):
+    """
+    Convert an aggregation table into natural language JSONL documents and
+    write them to data/processed/documents/{r_table}_document.jsonl.
+    Each row becomes one document with a text summary and metadata dict.
+    """
+
     map = {
         'agg_month': ['month', 'months'],
         'agg_quarter': ['quarter', 'quarters'],
@@ -110,7 +118,9 @@ def report(tables, r_table):
     }
     style = map[r_table]
     table = tables[r_table]
-
+    table = table.copy()
+    table["sales_rank_desc"] = table["Sales_sum"].rank(ascending=False, method="dense").astype(int)
+    table["sales_rank_asc"]  = table["Sales_sum"].rank(ascending=True,  method="dense").astype(int)
     mean = table["Sales_sum"].mean()
     top = table["Sales_sum"].quantile(0.90)
     low = table["Sales_sum"].quantile(0.10)
@@ -130,6 +140,7 @@ def report(tables, r_table):
         return f'unprofitable'
     
     def label_start(x):
+        """Return the opening sentence fragment for a row's text summary."""
         s = style[0]
         if s == "month": return f'Sales report for month {x[0].strftime("%B %Y")}: In {x[0].strftime("%B %Y")},'
         if s == "quarter": return f'Sales report for quarter Q{x[0].quarter} {x[0].year}: In Q{x[0].quarter} {x[0].year},'
@@ -151,6 +162,7 @@ def report(tables, r_table):
         return f'the most sold product was {x["Top_item"]}'
         
     def compare_previous(x, previous):
+        """Append a growth/shrinkage note for time-series aggregations."""
         if style[0] in ['month', 'year', 'quarter'] and previous is not None:
             if x > (1 + 0.1 * np.sign(previous)) * previous:
                 rep = 'strong growth'
@@ -162,13 +174,16 @@ def report(tables, r_table):
         return ""
     
     def create_metadata(idx, row):
+        """Build the metadata dict stored alongside each document in ChromaDB."""
         base = {
             "type": style[0],
             "sales": float(row["Sales_sum"]),
             "profits": float(row["Profit_sum"]),
             "quantity": int(row["Quantity_sum"]),
             "margin": round(float(row["Profit_sum"]) / float(row["Sales_sum"]), 4) if row["Sales_sum"] else 0.0,
-            "discount_rate": round(float(row["Discounted_rate"]), 4)
+            "discount_rate": round(float(row["Discounted_rate"]), 4),
+            "sales_rank_asc": int(row["sales_rank_desc"]),
+            "sales_rank_desc": int(row["sales_rank_asc"]),
         }
 
         field_map = {
@@ -215,6 +230,13 @@ def report(tables, r_table):
             f.write(json.dumps(formatted) + "\n")
 
 def process(file_name):
+    """
+    Full processing pipeline for a raw CSV:
+    1. Build all aggregation tables
+    2. Write JSONL document files for each aggregation
+    3. Write NLP-enriched transaction CSV for the transactions collection
+    """
+
     path = config.DATA_RAW_DIR / file_name
     df = pd.read_csv(path, encoding="cp1252")
     df["Order Date"] = pd.to_datetime(df["Order Date"], format='%m/%d/%Y')
@@ -238,7 +260,6 @@ def process(file_name):
         'agg_region_x_year': aggregate_by_region_x_year(df)
     }
 
-    # other useful: spent per customer, customers vs companies 
     # Creating summaries text documents
     for table_name, _ in aggregate_tables.items():
         report(aggregate_tables, table_name)

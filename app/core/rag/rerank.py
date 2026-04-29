@@ -2,6 +2,7 @@ from sentence_transformers import CrossEncoder
 from app.core.config.logging import logger
 from app.core.config.settings import config
 import json
+import numpy as np
 
 class ranker():
     def __init__(self):
@@ -45,11 +46,10 @@ class ranker():
         tables = list(self.table_desc.keys())
         pairs = [(query, self.table_desc[t]) for t in tables]
         scores = self.model.predict(pairs)
-
+        scores = np.exp(scores) / np.exp(scores).sum()
         scored = sorted(zip(tables, scores), key=lambda x: x[1], reverse=True)
         best = scored[0][1]
         selected = [t for t, s in scored if s + 0.01 >= best * config.ROUTER_THRESHOLD]
-
         logger.info({
             "table_routing": {
                 "query": query,
