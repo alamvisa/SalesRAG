@@ -48,21 +48,21 @@ LLM Generator           (produces final natural language answer)
 │   │   │   └── filter.py               # Per-collection filter generation
 │   │   └── request.py                  # Handler — orchestrates the pipeline
 │   ├── db/
-│   │   └── engine.py
+│   │   └── engine.py                   # Database engine for interacting with chroma db
 │   └── pipeline/
-│       ├── process.py
-│       └── load.py
+│       ├── process.py                  # Transforms raw data for ingestation
+│       └── load.py                     # Ingests the data to the database 
 ├── interfaces/
 │   └── cli/
-│       ├── cli_main.py
-│       └── spin.py
+│       ├── cli_main.py                 # Main CLIe logic
+│       └── spin.py                     # Small loading animation for the CLI
 ├── data/
 │   ├── raw/
 │   │   └── superstore.csv
 │   └── processed/
 ├── tests/
-│   └── test_pipeline/
-├── main.py
+│   └── test_pipeline.py                # Tests for sample queries
+├── main.py                 
 ├── README.md
 └── requirements.txt
 ```
