@@ -28,6 +28,10 @@ class ranker():
         }
 
     def rank(self, query, chunks):
+        """
+        Score each chunk against the query and return the top results.
+        Keeps all chunks scoring at least 20% of the best score.
+        """
         logger.info(json.dumps({
             "retrieved context": {"chunks": chunks}
         }))
@@ -43,6 +47,11 @@ class ranker():
         return top
     
     def route(self, query: str) -> list[str]:
+        """
+        Select which collections to query by scoring the query against each
+        table description. Softmax normalises raw logits to a probability
+        distribution so scores are comparable across queries.
+        """
         tables = list(self.table_desc.keys())
         pairs = [(query, self.table_desc[t]) for t in tables]
         scores = self.model.predict(pairs)

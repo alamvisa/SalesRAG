@@ -9,8 +9,10 @@ import json
 
 
 class Handler():
+    """
+    Orchestrates the full RAG pipeline
+    """
     def __init__(self, disable_generator = False):
-        #self.collection = get_collections()
         self.input = None
         self.context = None
         self.generator = None
@@ -25,6 +27,9 @@ class Handler():
         self.input = input
 
     def retrieve(self):
+        """
+        Route the query to relevant collections, apply filters, retrieve and rerank chunks.
+        """
         selected_tables = self.ranker.route(self.input)
         collection = get_collections(selected_tables)
         filters = get_filters(self.input)
@@ -32,6 +37,9 @@ class Handler():
         self.context = self.ranker.rank(self.input, retrieved)
 
     def generate(self):
+        """
+        Format reranked context into a prompt and return the LLM response.
+        """
         if self.generator is None:
             return
         context = get_prompt(self.context)
@@ -39,9 +47,3 @@ class Handler():
     
     def get_context(self):
         return self.context
-    
-# h = Handler(disable_generator=True)
-# inp = "Which region has the best sales performance?"
-# h.new_input(inp)
-# h.retrieve()
-# print([c for c in h.get_context() if c["source"] == "agg_product"])

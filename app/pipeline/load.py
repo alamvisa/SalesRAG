@@ -10,6 +10,9 @@ def get_ef():
     
 
 def load_collection(collection_name: str, table_name: str, client, ef):
+    """
+    Loads a JSONL document file into a ChromaDB collection, using cosine similarity.
+    """
     collection = client.get_or_create_collection(
         name=collection_name,
         embedding_function=ef,
@@ -34,6 +37,9 @@ def load_collection(collection_name: str, table_name: str, client, ef):
     return collection
 
 def load_csv(collection):
+    """
+    Loads the processed transactions CSV into the transactions collection.
+    """
     path = config.DATA_PROCESSED_DIR / "processed_superstore.csv"
     documents, metadatas, ids = [], [], []
     df = pd.read_csv(path)
@@ -65,6 +71,9 @@ def load_csv(collection):
         )
 
 def build_all_collections(aggregate_tables, client, ef):
+    """
+    Loads each aggregation table's JSONL into its own ChromaDB collection.
+    """
     collections = {}
     for table_name in aggregate_tables:
         collections[table_name] = load_collection(table_name, table_name, client, ef)

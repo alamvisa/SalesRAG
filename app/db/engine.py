@@ -31,12 +31,17 @@ def get_client():
     return _client
 
 def reset_client():
+    """
+    Clear the singleton so the next get_client() opens a fresh connection.
+    """
     global _client
     _client = None
 
 class EmbeddingF(EmbeddingFunction):
+    """
+    Wraps a SentenceTransformer to produce normalised embeddings for ChromaDB.
+    """
     def __init__(self, model_name=config.EMBEDDING_MODEL):
-        #self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.device = "cpu"
         self.model = SentenceTransformer(model_name, device = self.device)
         
@@ -44,6 +49,9 @@ class EmbeddingF(EmbeddingFunction):
         return self.model.encode(input, normalize_embeddings=True).tolist()
     
 def get_collections(selected_tables = collection_names.keys()):
+    """
+    Return a fresh dict of ChromaDB Collection objects for the given table names.
+    """
     client = get_client()
     ef = EmbeddingF()
 
@@ -53,6 +61,11 @@ def get_collections(selected_tables = collection_names.keys()):
     }
 
 def query(collections, query_text, filters = None):
+    """
+    Query each collection by vector similarity and return all hits below the
+    distance threshold, sorted nearest-first.
+    Filters are stripped to only the fields present in each collection's schema.
+    """
     results = []
     for name, collection in collections.items():
 
@@ -71,7 +84,6 @@ def query(collections, query_text, filters = None):
                     active_filters[key] = value
             if active_filters:
                 query_kwargs["where"] = active_filters
-        print(query_kwargs)
         hits = collection.query(**query_kwargs)
 
         for doc, meta, dist in zip(
@@ -90,21 +102,3 @@ def query(collections, query_text, filters = None):
             })
 
     return sorted(results, key=lambda x: x["distance"])
-
-# def check_db():
-#     chroma_path = config.DATA_PROCESSED_DIR / config.DB_NAME
-#     if not chroma_path.exists():
-#         return False
-#     try:
-#         client = get_client()
-#         existing = {c.name for c in client.list_collections()}
-#         if not all(name in existing for name in collection_names):
-#             return False
-#         for name in collection_names:
-#             col = client.get_collection(name)
-#             if col.count() == 0:
-#                 return False
-#         return True
-#     except Exception:
-#         reset_client()
-#         return False

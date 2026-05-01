@@ -16,11 +16,6 @@ def run(load_required):
                 spinner.start("Processing query...")
                 handler.new_input(context)
 
-                # response = handler.process()
-                # if response == 1:
-                #     spinner.update("Filtering...")
-                #     handler.filter()
-
                 spinner.update("Retrieving...")
                 handler.retrieve()
 
