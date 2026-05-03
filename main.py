@@ -1,24 +1,12 @@
 import os
-import logging
+import sys
 import warnings
-
-os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
-os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["HF_HUB_VERBOSITY"] = "error"
-os.environ["TRANSFORMERS_VERBOSITY"] = "error"
-os.environ["TQDM_DISABLE"] = "1"
-#os.environ["SENTENCE_TRANSFORMERS_HOME"] = str(__import__('pathlib').Path.home() / ".cache" / "sentence_transformers")
-
-warnings.filterwarnings("ignore")
-
+os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"   
 from interfaces.cli.cli_main import run
 from app.pipeline.process import process
 from app.core.config.settings import config
-#from app.db.engine import check_db
-import sys
-import os
-        
+warnings.filterwarnings("ignore")
+
 def re_process():
     processed = os.listdir("data/processed/documents/")
     for file_r in processed:
@@ -29,9 +17,8 @@ def re_process():
     
 
 if __name__ == "__main__":
-    #load = not check_db()
     load = False
-    if len(sys.argv) > 1 and sys.argv[1] == "--reload":
+    if (len(sys.argv) > 1 and sys.argv[1] == "--reload") or not os.path.exists(f"data/processed/{config.DB_NAME}"):
         load = True
         print("Reloading DB...")
         re_process()

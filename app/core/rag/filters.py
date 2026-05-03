@@ -38,10 +38,17 @@ def get_filters(query):
             break
 
     # Region
-    for region in REGIONS:
-        if region in q:
-            conditions.append({"region": {"$eq": region.title()}})
-            break
+    matched_regions = [
+        region.title() for region in REGIONS
+        if re.search(rf'\b{re.escape(region)}\b', q)
+    ]
+    if matched_regions:
+        if len(matched_regions) == 1:
+            conditions.append({"region": {"$eq": matched_regions[0]}})
+        else:
+            conditions.append({
+                "$or": [{"region": {"$eq": region}} for region in matched_regions]
+            })
 
     # Category
     for cat in CATEGORIES:

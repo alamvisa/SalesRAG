@@ -22,8 +22,6 @@ collection_names = {
     'transactions': ["type"]
 }
 
-_client = None
-
 def get_client():
     global _client
     if _client is None:
@@ -46,15 +44,14 @@ class EmbeddingF(EmbeddingFunction):
         self.model = SentenceTransformer(model_name, device = self.device)
         
     def __call__(self, input: Documents) -> Embeddings:
-        return self.model.encode(input, normalize_embeddings=True).tolist()
+        return self.model.encode(input, normalize_embeddings=True, show_progress_bar=False).tolist()
     
 def get_collections(selected_tables = collection_names.keys()):
     """
     Return a fresh dict of ChromaDB Collection objects for the given table names.
     """
     client = get_client()
-    ef = EmbeddingF()
-
+    
     return {
         name: client.get_collection(name=name, embedding_function=ef)
         for name in selected_tables
@@ -70,8 +67,8 @@ def query(collections, query_text, filters = None):
     for name, collection in collections.items():
 
         n = min(config.N_RESULTS, collection.count())
-        if name == "":
-            pass
+        if name == "" or collection.count() == 0:
+            continue
         query_kwargs = dict(
             query_texts=[query_text],
             n_results=n,
@@ -84,7 +81,11 @@ def query(collections, query_text, filters = None):
                     active_filters[key] = value
             if active_filters:
                 query_kwargs["where"] = active_filters
-        hits = collection.query(**query_kwargs)
+        try:
+            hits = collection.query(**query_kwargs)
+        except Exception as e:
+            print(e)
+            print(f"At collection {name}")
 
         for doc, meta, dist in zip(
             hits["documents"][0],
@@ -102,3 +103,9 @@ def query(collections, query_text, filters = None):
             })
 
     return sorted(results, key=lambda x: x["distance"])
+
+def return_ef():
+    return ef
+
+ef = EmbeddingF()
+_client = None

@@ -1,5 +1,5 @@
 import time
-from app.db.engine import get_collections, query
+from app.db.engine import get_collections, query, reset_client
 from app.core.llm.llm import generator
 from app.core.llm.prompt import get_prompt
 from app.core.rag.rerank import ranker

@@ -15,5 +15,6 @@ class Config(BaseSettings):
     SYSTEM_RULES: str = "If the context provided does not contain the requiered infomation, tell the user the data is insufficent."
     SYSTEM_PROMPT: str = SYSTEM_STYLE + SYSTEM_RULES
     ROUTER_THRESHOLD: float = 0.4
+    CHUNK_IN_PROMPT: int = 10
 
 config = Config()

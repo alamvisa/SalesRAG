@@ -20,7 +20,7 @@ User Query
 Table Router            (ranks collections based on relevancy)
     │
     ▼
-Filter Adaptation       (keyword matching for metadata filter generation)
+Filter generation       (keyword matching for metadata filter generation)
     │
     ▼
 ChromaDB Retrieval      (vector search and filtering)

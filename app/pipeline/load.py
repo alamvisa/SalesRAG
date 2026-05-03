@@ -2,11 +2,11 @@ import json
 from pathlib import Path
 from app.core.config.settings import config
 import pandas as pd
-from app.db.engine import EmbeddingF, get_client, reset_client
+from app.db.engine import get_client, reset_client, return_ef
 import shutil
 
 def get_ef():
-    return EmbeddingF()
+    return return_ef()
     
 
 def load_collection(collection_name: str, table_name: str, client, ef):
@@ -16,7 +16,8 @@ def load_collection(collection_name: str, table_name: str, client, ef):
     collection = client.get_or_create_collection(
         name=collection_name,
         embedding_function=ef,
-        metadata={"hnsw:space": "cosine"}
+        metadata={"hnsw:space": "cosine"},
+        
     )
     path = config.DATA_PROCESSED_DIR / "documents" / f"{table_name}_document.jsonl"
     documents, metadatas, ids = [], [], []
@@ -99,6 +100,7 @@ def load():
         name="transactions",
         embedding_function=ef,
         metadata={"hnsw:space": "cosine"}
+        
     )
     load_csv(transactions)
     collections["transactions"] = transactions
